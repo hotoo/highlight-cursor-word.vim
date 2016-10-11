@@ -34,7 +34,7 @@ function! HighlightCursorWord()
   endif
 endfunction
 
-autocmd CursorMoved,CursorHold *.js,*.java,*.cs,*.c,*.cpp,*.h,*.vim silent! call HighlightCursorWord()
+autocmd CursorMoved,CursorHold *.js,*.ts,*.jsx,*.tsx,*.java,*.cs,*.c,*.cpp,*.h,*.vim,*.py,*.rb silent! call HighlightCursorWord()
 
 " autocmd CursorMoved,CursorHold * silent! if synIDtrans(synID(line('.'), col('.'), 1)) == 0 &&
       " \ match(getline(line("."))[col(".") - 1], '[a-zA-Z0-9_]') == 0 &&
