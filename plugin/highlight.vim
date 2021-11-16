@@ -9,11 +9,21 @@ endif
 let loaded_highlight_cursor_word = 1
 
 function! GetCursorWord()
+  " 通用，没有设置语法的值可以高亮。
   if synIDtrans(synID(line('.'), col('.'), 1)) == 0 &&
     \ match(getline(line("."))[col(".") - 1], '[a-zA-Z0-9_]') == 0 &&
     \ match(expand('<cword>'), '^[a-zA-Z_][a-zA-Z0-9_]*$') >= 0
       return expand('<cword>')
   endif
+
+  " JavaScript 特殊处理
+  " 'neoclide/vim-jsx-improve' 由于给变量名都设置了语法定义，例如
+  " 'jsVariableDef'，所以上面的逻辑会失效，所以针对 js 所有关键字度高亮。
+  " if synIDattr(synID(line('.'), col('.'), 1), 'name') ^= 'js'
+  if &ft == 'javascript' || &ft == 'javascriptreact'
+    return expand('<cword>')
+  endif
+
   return ''
 endfunction
 
