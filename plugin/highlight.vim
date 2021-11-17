@@ -8,6 +8,10 @@ if exists('loaded_highlight_cursor_word')
 endif
 let loaded_highlight_cursor_word = 1
 
+if !exists('g:highlight_cursor_word_white_list')
+  let g:highlight_cursor_word_white_list = { }
+endif
+
 function! GetCursorWord()
   " 通用，没有设置语法的值可以高亮。
   if synIDtrans(synID(line('.'), col('.'), 1)) == 0 &&
@@ -19,9 +23,11 @@ function! GetCursorWord()
   " JavaScript 特殊处理
   " 'neoclide/vim-jsx-improve' 由于给变量名都设置了语法定义，例如
   " 'jsVariableDef'，所以上面的逻辑会失效，所以针对 js 所有关键字度高亮。
-  " if synIDattr(synID(line('.'), col('.'), 1), 'name') ^= 'js'
-  if &ft == 'javascript' || &ft == 'javascriptreact'
-    return expand('<cword>')
+  if exists('g:highlight_cursor_word_white_list.' . &ft)
+    let synName = synIDattr(synID(line('.'), col('.'), 1), 'name')
+    if g:highlight_cursor_word_white_list[ &ft ] == '*' || index(split(g:highlight_cursor_word_white_list[ &ft ], ','), synName) >= 0
+        return expand('<cword>')
+    endif
   endif
 
   return ''

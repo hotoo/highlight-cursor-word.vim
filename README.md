@@ -35,3 +35,25 @@ Default support:
 - *.rb
 
 want support more filetypes by default? Fork & Pull Request please.
+
+## Options
+
+### g:highlight_cursor_word_white_list
+
+If you use https://github.com/neoclide/vim-jsx-improve for javascript, you should
+use the following configuration.
+
+```viml
+let g:highlight_cursor_word_white_list = {
+      \ 'javascript': '*',
+      \ 'javascriptreact': '*'
+      \ }
+```
+
+also you can specify the syntax name:
+
+```viml
+let g:highlight_cursor_word_white_list = {
+      \ 'javascript': 'jsVariableDef,jsDestructuringBlock',
+      \ }
+```
