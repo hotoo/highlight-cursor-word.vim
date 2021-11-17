@@ -22,10 +22,11 @@ function! GetCursorWord()
 
   " JavaScript 特殊处理
   " 'neoclide/vim-jsx-improve' 由于给变量名都设置了语法定义，例如
-  " 'jsVariableDef'，所以上面的逻辑会失效，所以针对 js 所有关键字度高亮。
+  " 'jsVariableDef'，所以上面的逻辑会失效，所以针对 js 所有关键字都高亮。
   if exists('g:highlight_cursor_word_white_list.' . &ft)
     let synName = synIDattr(synID(line('.'), col('.'), 1), 'name')
-    if g:highlight_cursor_word_white_list[ &ft ] == '*' || index(split(g:highlight_cursor_word_white_list[ &ft ], ','), synName) >= 0
+    if g:highlight_cursor_word_white_list[ &ft ] == '*' ||
+          \ index(split(g:highlight_cursor_word_white_list[ &ft ], ','), synName) >= 0
         return expand('<cword>')
     endif
   endif
