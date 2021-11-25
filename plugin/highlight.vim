@@ -39,7 +39,7 @@ let g:lastHighlightCursorWord = GetCursorWord()
 
 function! HighlightCursorWord()
   let cursorWord = GetCursorWord()
-  if cursorWord == g:lastHighlightCursorWord
+  if cursorWord ==# g:lastHighlightCursorWord
     return
   endif
   let g:lastHighlightCursorWord = cursorWord
